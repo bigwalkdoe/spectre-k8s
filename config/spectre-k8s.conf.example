@@ -43,6 +43,8 @@ K3S_VERSION=""
 K3S_SERVER_ARGS=""
 # If "yes", copy kubeconfig for ADMIN_USER to ~/.kube/config with safe permissions.
 K3S_SETUP_KUBECONFIG="yes"
+# Override installer URL if needed (default: official k3s installer).
+K3S_INSTALL_SCRIPT_URL="https://get.k3s.io"
 
 # --- Backups ----------------------------------------------------------------
 # Enable scheduled backups of host/config state and configured paths.

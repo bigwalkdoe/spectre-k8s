@@ -14,9 +14,9 @@ run_module() {
   if command_exists k3s; then
     log_info "k3s already installed: $(k3s --version 2>/dev/null | head -n1 || echo 'unknown version')"
   else
-    log_info "Running k3s installer..."
+    log_info "Running k3s installer from ${K3S_INSTALL_SCRIPT_URL}..."
     # shellcheck disable=SC2086
-    curl -sfL https://get.k3s.io | env "${install_env[@]}" sh -
+    curl -sfL "${K3S_INSTALL_SCRIPT_URL}" | env "${install_env[@]}" sh -
   fi
 
   systemctl enable k3s >/dev/null 2>&1 || true

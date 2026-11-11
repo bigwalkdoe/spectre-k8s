@@ -55,6 +55,7 @@ Real configuration lives in `config/spectre-k8s.conf` (gitignored). Copy from `c
 | `K3S_VERSION` | *(empty)* | Specific k3s version (overrides channel behavior per installer) |
 | `K3S_SERVER_ARGS` | *(empty)* | Extra args for `k3s server` install |
 | `K3S_SETUP_KUBECONFIG` | `yes` | Copy kubeconfig to `ADMIN_USER`'s `~/.kube/config` |
+| `K3S_INSTALL_SCRIPT_URL` | `https://get.k3s.io` | k3s installer script URL (override for mirrors/custom sources) |
 | `BACKUP_ENABLED` | `yes` | Enable scheduled backups |
 | `BACKUP_TARGET_DIR` | `/var/backups/spectre-k8s` | Backup archive directory |
 | `BACKUP_PATHS` | `/etc /etc/spectre-k8s /var/lib/rancher/k3s/server` | Paths to back up (explicit) |
