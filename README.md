@@ -50,6 +50,7 @@ Real configuration lives in `config/spectre-k8s.conf` (gitignored). Copy from `c
 | `SSH_PUBKEY_AUTH` | `yes` | Enable public key auth |
 | `ALLOW_LOCKOUT_RISK` | `no` | Override lockout safety (only if you intentionally accept risk) |
 | `UFW_ALLOWED_TCP_PORTS` | `6443` | Extra inbound TCP ports to allow (SSH is always allowed/rate-limited) |
+| `UFW_ALLOWED_UDP_PORTS` | *(empty)* | Extra inbound UDP ports to allow (e.g. `8472` for Flannel VXLAN in multi-node setups) |
 | `K3S_CHANNEL` | *(empty)* | k3s install channel (installer default if empty) |
 | `K3S_VERSION` | *(empty)* | Specific k3s version (overrides channel behavior per installer) |
 | `K3S_SERVER_ARGS` | *(empty)* | Extra args for `k3s server` install |

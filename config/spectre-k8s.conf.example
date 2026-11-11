@@ -27,9 +27,12 @@ SSH_PUBKEY_AUTH="yes"
 ALLOW_LOCKOUT_RISK="no"
 
 # --- Firewall (UFW) ---------------------------------------------------------
-# Extra TCP ports to allow inbound (space-separated), e.g. "80 443". SSH_PORT is allowed automatically.
-# For single-node k3s you may need to expose the Kubernetes API (6443) and/or ingress ports depending on your setup.
+# Extra ports to allow inbound (space-separated). SSH_PORT is allowed automatically (rate-limited).
+# Defaults allow Kubernetes API (6443/tcp) for single-node access. Adjust for your topology:
+# - ingress/controllers: e.g. 80 443
+# - multi-node k3s/flannel (if expanded later): typically 8472/udp (VXLAN), 10250/tcp (kubelet metrics), etc.
 UFW_ALLOWED_TCP_PORTS="6443"
+UFW_ALLOWED_UDP_PORTS=""
 
 # --- k3s --------------------------------------------------------------------
 # Install channel or version (passed to k3s installer via INSTALL_K3S_CHANNEL or INSTALL_K3S_VERSION).

@@ -12,21 +12,31 @@ run_module() {
   # Ensure SSH allowed (rate-limited) before enabling
   ufw limit "${SSH_PORT}/tcp" comment 'spectre-k8s SSH' >/dev/null 2>&1 || ufw limit "${SSH_PORT}/tcp" >/dev/null
 
-  # Extra ports (e.g. Kubernetes API 6443, ingress 80/443)
+  # Extra TCP ports (e.g. Kubernetes API 6443, ingress 80/443)
   local p
   for p in ${UFW_ALLOWED_TCP_PORTS}; do
     [[ -z "$p" ]] && continue
     if [[ "$p" =~ ^[0-9]+$ ]]; then
-      ufw allow "${p}/tcp" comment 'spectre-k8s extra' >/dev/null 2>&1 || ufw allow "${p}/tcp" >/dev/null
+      ufw allow "${p}/tcp" comment 'spectre-k8s tcp' >/dev/null 2>&1 || ufw allow "${p}/tcp" >/dev/null
     else
       log_warn "Skipping invalid UFW_ALLOWED_TCP_PORTS entry: $p"
+    fi
+  done
+
+  # Extra UDP ports (e.g. Flannel VXLAN 8472 for multi-node)
+  for p in ${UFW_ALLOWED_UDP_PORTS}; do
+    [[ -z "$p" ]] && continue
+    if [[ "$p" =~ ^[0-9]+$ ]]; then
+      ufw allow "${p}/udp" comment 'spectre-k8s udp' >/dev/null 2>&1 || ufw allow "${p}/udp" >/dev/null
+    else
+      log_warn "Skipping invalid UFW_ALLOWED_UDP_PORTS entry: $p"
     fi
   done
 
   # Enable firewall (non-interactive)
   ufw --force enable >/dev/null
   log_ok "UFW enabled (default deny incoming, allow outgoing, SSH ${SSH_PORT}/tcp rate-limited)."
-  log_info "Review Kubernetes networking/port requirements for your topology (API, CNI, ingress, NodePort ranges) and adjust UFW_ALLOWED_TCP_PORTS as needed."
+  log_info "Review Kubernetes networking/port requirements for your topology (API, CNI, ingress, NodePort ranges) and adjust UFW_ALLOWED_TCP_PORTS/UFW_ALLOWED_UDP_PORTS as needed."
 
   ufw status verbose || true
 }

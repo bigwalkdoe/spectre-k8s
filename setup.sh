@@ -85,7 +85,7 @@ main() {
     log_info "Detected OS: ${SPECTRE_OS_ID:-unknown} ${SPECTRE_OS_VERSION_ID:-} (${SPECTRE_OS_CODENAME:-unknown})"
     log_info "Admin user: ${ADMIN_USER}"
     log_info "SSH: port=${SSH_PORT}, password_auth=${SSH_PASSWORD_AUTH}, permit_root_login=${SSH_PERMIT_ROOT_LOGIN}, pubkey_auth=${SSH_PUBKEY_AUTH}"
-    log_info "Firewall: extra TCP ports='${UFW_ALLOWED_TCP_PORTS:-none}'"
+    log_info "Firewall: extra TCP ports='${UFW_ALLOWED_TCP_PORTS:-none}', extra UDP ports='${UFW_ALLOWED_UDP_PORTS:-none}'"
     log_info "k3s: channel='${K3S_CHANNEL:-default}', version='${K3S_VERSION:-default}', setup_kubeconfig=${K3S_SETUP_KUBECONFIG}"
     log_info "Backups: enabled=${BACKUP_ENABLED}, target=${BACKUP_TARGET_DIR}, retention=${BACKUP_RETENTION_COUNT}, schedule=${BACKUP_SCHEDULE}"
     log_info "Planned modules (${#modules[@]}):"
