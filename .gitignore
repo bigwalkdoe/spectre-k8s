@@ -1,0 +1,21 @@
+# Local configuration and secrets
+config/spectre-k8s.conf
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+credentials.json
+
+# Editor/runtime noise
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Logs and temporary output
+logs/
+tmp/
+
+# SDD workspaces (scratch)
+.superpowers/

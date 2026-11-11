@@ -1,0 +1,7 @@
+# Local spectre-k8s configuration (may contain environment-specific settings)
+spectre-k8s.conf
+
+# Local runtime/state artifacts
+*.local
+state/
+tmp/

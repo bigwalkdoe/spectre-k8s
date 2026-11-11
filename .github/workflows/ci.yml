@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Third-party actions are pinned to immutable commit SHAs, with the human-readable
+# version in a trailing comment.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  shell:
+    name: Shell checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Syntax check (bash -n)
+        run: |
+          set -euo pipefail
+          files="$(find . -type f -name '*.sh' ! -path './.git/*' | sort)"
+          if [ -z "$files" ]; then
+            echo "No shell scripts found."
+            exit 0
+          fi
+          echo "$files" | while IFS= read -r f; do
+            bash -n "$f"
+            echo "  ok: $f"
+          done
+
+      - name: ShellCheck
+        run: |
+          set -euo pipefail
+          files="$(find . -type f -name '*.sh' ! -path './.git/*' | sort)"
+          if [ -z "$files" ]; then
+            echo "No shell scripts found."
+            exit 0
+          fi
+          # shellcheck shell=bash
+          echo "$files" | xargs shellcheck -S style
