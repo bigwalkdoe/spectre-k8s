@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest an improvement for spectre-k8s
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        spectre-k8s is intentionally opinionated and focused on safely bootstrapping hardened Ubuntu/Debian hosts with k3s.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checked
+      options:
+        - label: I searched existing issues and pull requests.
+          required: true
+        - label: This is not about a security vulnerability (see SECURITY.md).
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      placeholder: "I need the bootstrap to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the behavior, config, or module changes you have in mind.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false

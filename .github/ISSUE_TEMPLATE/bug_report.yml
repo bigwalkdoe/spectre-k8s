@@ -1,0 +1,66 @@
+name: Bug report
+description: Something isn't working in spectre-k8s
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please include enough detail to reproduce the issue on a fresh Ubuntu/Debian server.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checked
+      options:
+        - label: I read the README and relevant documentation.
+          required: true
+        - label: I copied `config/spectre-k8s.conf.example` to `config/spectre-k8s.conf` before running setup.
+          required: false
+        - label: This is not a security vulnerability (see SECURITY.md).
+          required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: OS and version
+      description: e.g. "Ubuntu 24.04 LTS" or "Debian 12"
+      placeholder: "Ubuntu 24.04 LTS"
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Fresh server state
+        2. cp config/spectre-k8s.conf.example config/spectre-k8s.conf
+        3. sudo ./setup.sh
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What actually happened
+      description: Paste relevant command output/logs.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Redacted config (if relevant)
+      description: Contents of `config/spectre-k8s.conf` with any sensitive values removed.
+      render: shell
+    validations:
+      required: false
