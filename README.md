@@ -23,7 +23,7 @@ cp config/spectre-k8s.conf.example config/spectre-k8s.conf
 # edit config/spectre-k8s.conf (set ADMIN_SSH_PUBLIC_KEYS, review firewall/k3s options)
 
 # optional: validate config and preview planned modules without making changes
-./setup.sh --dry-run
+./setup.sh --dry-run   # or: ./setup.sh --check
 
 sudo ./setup.sh
 ```
