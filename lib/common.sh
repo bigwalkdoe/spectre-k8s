@@ -147,6 +147,15 @@ validate_config() {
   case "$BACKUP_ENABLED" in yes|no) ;; *) die "BACKUP_ENABLED must be 'yes' or 'no'.";; esac
   case "$K3S_SETUP_KUBECONFIG" in yes|no) ;; *) die "K3S_SETUP_KUBECONFIG must be 'yes' or 'no'.";; esac
   case "$ALLOW_LOCKOUT_RISK" in yes|no) ;; *) die "ALLOW_LOCKOUT_RISK must be 'yes' or 'no'.";; esac
+  [[ -n "$K3S_INSTALL_SCRIPT_URL" ]] || die "K3S_INSTALL_SCRIPT_URL must not be empty."
+
+  local _p
+  for _p in ${UFW_ALLOWED_TCP_PORTS}; do
+    [[ "$_p" =~ ^[0-9]+$ ]] && (( _p >= 1 && _p <= 65535 )) || die "UFW_ALLOWED_TCP_PORTS contains invalid port: '${_p}'"
+  done
+  for _p in ${UFW_ALLOWED_UDP_PORTS}; do
+    [[ "$_p" =~ ^[0-9]+$ ]] && (( _p >= 1 && _p <= 65535 )) || die "UFW_ALLOWED_UDP_PORTS contains invalid port: '${_p}'"
+  done
 }
 
 # Lockout safety: if password auth disabled, ensure some admin key path is viable unless override
