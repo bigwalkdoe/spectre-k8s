@@ -140,7 +140,10 @@ validate_config() {
   if ! [[ "$SSH_PORT" =~ ^[0-9]+$ ]] || (( SSH_PORT < 1 || SSH_PORT > 65535 )); then
     die "SSH_PORT must be a valid port number."
   fi
-  [[ "$BACKUP_RETENTION_COUNT" =~ ^[0-9]+$ ]] || die "BACKUP_RETENTION_COUNT must be a non-negative integer."
+  [[ "$BACKUP_RETENTION_COUNT" =~ ^[0-9]+$ ]] || die "BACKUP_RETENTION_COUNT must be an integer."
+  if [[ "$BACKUP_ENABLED" == "yes" ]] && (( BACKUP_RETENTION_COUNT < 1 )); then
+    die "BACKUP_RETENTION_COUNT must be >= 1 when BACKUP_ENABLED=yes."
+  fi
   case "$SSH_PASSWORD_AUTH" in yes|no) ;; *) die "SSH_PASSWORD_AUTH must be 'yes' or 'no'.";; esac
   case "$SSH_PERMIT_ROOT_LOGIN" in yes|no|prohibit-password|forced-commands-only) ;; *) die "SSH_PERMIT_ROOT_LOGIN must be yes|no|prohibit-password|forced-commands-only.";; esac
   case "$SSH_PUBKEY_AUTH" in yes|no) ;; *) die "SSH_PUBKEY_AUTH must be 'yes' or 'no'.";; esac

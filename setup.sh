@@ -14,11 +14,11 @@ usage() {
 spectre-k8s - Ubuntu/Debian Kubernetes (k3s) host bootstrap
 
 Usage:
-  sudo ./setup.sh [--config PATH] [--dry-run] [--help] [--version]
+  sudo ./setup.sh [--config PATH] [--dry-run|--check] [--help] [--version]
 
 Options:
   --config PATH   Path to config file (default: ./config/spectre-k8s.conf)
-  --dry-run       Validate config and show planned actions without making changes
+  --dry-run       Validate config and show planned actions without making changes (alias: --check)
   --help          Show this help and exit
   --version       Show version and exit
 
@@ -44,7 +44,7 @@ main() {
         echo "spectre-k8s ${VERSION}"
         exit 0
         ;;
-      --dry-run)
+      --dry-run|--check)
         DRY_RUN=1
         ;;
       --config)
