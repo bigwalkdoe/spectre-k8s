@@ -14,7 +14,7 @@ Use this checklist to validate `spectre-k8s` on fresh **Ubuntu** and **Debian** 
 - [ ] Set `ADMIN_SSH_PUBLIC_KEYS` and review SSH, firewall ports (e.g. `6443`, ingress), k3s, and backup settings
 
 ## First run
-- [ ] Run: `sudo ./setup.sh` (optionally `./setup.sh --dry-run` first)
+- [ ] Run: `sudo ./setup.sh` (optionally `./setup.sh --dry-run` or `./setup.sh --check` first)
 - [ ] Confirm exit code 0 and summary shows modules run
 - [ ] **Do not close current session yet** — verify SSH access in a separate session as `ADMIN_USER` on `SSH_PORT`
 
