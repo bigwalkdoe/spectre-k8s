@@ -39,7 +39,11 @@ UFW_ALLOWED_UDP_PORTS=""
 # Leave empty for k3s installer defaults (stable channel). Example version: "v1.31.5+k3s1"
 K3S_CHANNEL=""
 K3S_VERSION=""
-# Extra arguments for k3s server install (space-separated). Example: "--disable traefik --write-kubeconfig-mode 0640"
+# Extra arguments for k3s server install (space-separated).
+# Examples:
+#   "--disable traefik"                         # if you will install your own ingress controller
+#   "--disable servicelb"                       # if you will use an alternative load balancer
+#   "--write-kubeconfig-mode 0640"              # adjust kubeconfig permissions
 K3S_SERVER_ARGS=""
 # If "yes", copy kubeconfig for ADMIN_USER to ~/.kube/config with safe permissions.
 K3S_SETUP_KUBECONFIG="yes"

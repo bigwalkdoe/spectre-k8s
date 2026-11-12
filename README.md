@@ -76,7 +76,8 @@ Real configuration lives in `config/spectre-k8s.conf` (gitignored). Copy from `c
 ## Security and operations notes
 
 - **SSH lockout safety:** with password auth disabled (default), setup fails if no admin key is available unless `ALLOW_LOCKOUT_RISK=yes`.
-- **Firewall/Kubernetes networking:** default allows SSH and `6443/tcp`. Depending on your workload (ingress controllers, LoadBalancer/NodePort exposure, CNI requirements, multi-node expansion), you must explicitly allow required ports and validate reachability.
+- **Firewall/Kubernetes networking:** default allows SSH and `6443/tcp`. Depending on your workload (ingress controllers, LoadBalancer/NodePort exposure, CNI requirements, multi-node expansion), you must explicitly allow required ports and validate reachability. Common additions: `80,443/tcp` for ingress; `8472/udp` (and related ports) for multi-node Flannel/VXLAN setups.
+- **k3s options:** use `K3S_SERVER_ARGS` to tailor the server install (e.g. `--disable traefik`, `--disable servicelb`, `--write-kubeconfig-mode 0640`).
 - **Backups:** explicit paths only (host/config and k3s server state by default). They do **not** automatically cover all workload data/PVC contents; back up application data separately as needed.
 - **Idempotency:** re-running `sudo ./setup.sh` is supported.
 
