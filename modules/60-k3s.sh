@@ -37,6 +37,11 @@ run_module() {
     log_warn "k3s installed but API readiness not confirmed yet; check: systemctl status k3s && k3s kubectl get nodes"
   fi
 
+  # Convenience: ensure kubectl is available on PATH (k3s typically provides it; create if missing)
+  if [[ -x /usr/local/bin/k3s && ! -e /usr/local/bin/kubectl ]]; then
+    ln -s /usr/local/bin/k3s /usr/local/bin/kubectl 2>/dev/null || true
+  fi
+
   # Kubeconfig for admin user
   if [[ "${K3S_SETUP_KUBECONFIG:-yes}" == "yes" ]] && id "$ADMIN_USER" >/dev/null 2>&1; then
     local home_dir kube_dir
@@ -53,5 +58,5 @@ run_module() {
     fi
   fi
 
-  log_ok "k3s module completed. Use 'k3s kubectl get nodes' (or kubectl with configured kubeconfig) to verify."
+  log_ok "k3s module completed. Verify with: sudo k3s kubectl get nodes (or kubectl as configured user)."
 }
