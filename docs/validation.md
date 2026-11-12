@@ -26,6 +26,7 @@ Use this checklist to validate `spectre-k8s` on fresh **Ubuntu** and **Debian** 
 - [ ] Fail2ban: `sudo fail2ban-client status sshd`
 - [ ] Unattended upgrades/time sync: `systemctl is-active unattended-upgrades` and `timedatectl status`
 - [ ] k3s: `sudo systemctl is-active k3s`, `sudo k3s --version`, `sudo k3s kubectl get nodes -o wide`
+- [ ] Optional diagnostics (if available): `sudo k3s check-config`
 - [ ] Kubeconfig (if enabled): `sudo -u <ADMIN_USER> KUBECONFIG=~<ADMIN_USER>/.kube/config kubectl get nodes`
 
 ## Idempotency
