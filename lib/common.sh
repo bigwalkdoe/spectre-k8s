@@ -151,10 +151,14 @@ validate_config() {
 
   local _p
   for _p in ${UFW_ALLOWED_TCP_PORTS}; do
-    [[ "$_p" =~ ^[0-9]+$ ]] && (( _p >= 1 && _p <= 65535 )) || die "UFW_ALLOWED_TCP_PORTS contains invalid port: '${_p}'"
+    if ! [[ "$_p" =~ ^[0-9]+$ ]] || (( _p < 1 || _p > 65535 )); then
+      die "UFW_ALLOWED_TCP_PORTS contains invalid port: '${_p}'"
+    fi
   done
   for _p in ${UFW_ALLOWED_UDP_PORTS}; do
-    [[ "$_p" =~ ^[0-9]+$ ]] && (( _p >= 1 && _p <= 65535 )) || die "UFW_ALLOWED_UDP_PORTS contains invalid port: '${_p}'"
+    if ! [[ "$_p" =~ ^[0-9]+$ ]] || (( _p < 1 || _p > 65535 )); then
+      die "UFW_ALLOWED_UDP_PORTS contains invalid port: '${_p}'"
+    fi
   done
 }
 
